@@ -1,5 +1,4 @@
 const trackMapToTrack = (trackMap) => {
-  console.log({ trackMap })
   return Array.from(trackMap.values())
     .map((publication) => publication.track)
     .filter((track) => track !== null)

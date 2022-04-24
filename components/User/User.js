@@ -7,8 +7,7 @@ function User ({ participant }) {
   const audioRef = useRef()
 
   useUser({
-    videoTracks: participant.videoTracks,
-    audioTracks: participant.videoTracks,
+    participant,
     videoRef,
     audioRef
   })

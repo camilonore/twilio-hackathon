@@ -7,17 +7,26 @@ import { RoomContext } from '../../Context/RoomContext'
 
 function Home () {
   const [loading, setLoading] = useState(false)
-  const { setRoom } = useContext(RoomContext)
+  const { setRoom, setUsers } = useContext(RoomContext)
   const router = useRouter()
 
   const handleSubmit = async (evt) => {
+    const participantConnected = participant => {
+      setUsers(prevParticipants => [...prevParticipants, participant])
+    }
+    const participantDisconnected = participant => {
+      setUsers(prevParticipants =>
+        prevParticipants.filter(p => p !== participant)
+      )
+    }
+
     setLoading(true)
     evt.preventDefault()
     const roomName = evt.target.room.value
     const data = await fetch('/api/get-token', {
       method: 'POST',
       body: JSON.stringify({
-        identity: 'username',
+        identity: 'user' + Math.random(),
         room: roomName
       }),
       headers: {
@@ -30,6 +39,9 @@ function Home () {
       name: roomName
     }).then((room) => {
       setRoom(room)
+      room.on('participantConnected', participantConnected)
+      room.on('participantDisconnected', participantDisconnected)
+      room.participants.forEach(participantConnected)
       router.push(`/${roomName}`)
     }).catch(err => {
       console.log(err)

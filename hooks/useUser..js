@@ -1,40 +1,59 @@
 import { useState, useEffect } from 'react'
 import { trackMapToTrack } from '../utils/trackMapToTrack'
 
-function useUser ({ videoTracks, audioTracks, videoRef, audioRef }) {
-  const [userVideo, setUserVideo] = useState({})
-  const [userAudio, setUserAudio] = useState({})
+function useUser ({ participant, videoRef, audioRef }) {
+  const [videoTracks, setVideoTracks] = useState([])
+  const [audioTracks, setAudioTracks] = useState([])
 
   useEffect(() => {
-    setUserVideo(trackMapToTrack(videoTracks))
-    setUserAudio(trackMapToTrack(audioTracks))
-    return () => {
-      setUserVideo([])
-      setUserAudio([])
+    setVideoTracks(trackMapToTrack(participant.videoTracks))
+    setAudioTracks(trackMapToTrack(participant.audioTracks))
+
+    const trackSubscribed = (track) => {
+      if (track.kind === 'video') {
+        setVideoTracks((videoTracks) => [...videoTracks, track])
+      } else if (track.kind === 'audio') {
+        setAudioTracks((audioTracks) => [...audioTracks, track])
+      }
     }
-  }, [videoTracks, audioTracks])
+
+    const trackUnsubscribed = (track) => {
+      if (track.kind === 'video') {
+        setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track))
+      } else if (track.kind === 'audio') {
+        setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track))
+      }
+    }
+
+    participant.on('trackSubscribed', trackSubscribed)
+    participant.on('trackUnsubscribed', trackUnsubscribed)
+
+    return () => {
+      setVideoTracks([])
+      setAudioTracks([])
+      participant.removeAllListeners()
+    }
+  }, [participant])
 
   useEffect(() => {
-    const videoTrack = userVideo[0]
+    const videoTrack = videoTracks[0]
     if (videoTrack) {
       videoTrack.attach(videoRef.current)
       return () => {
         videoTrack.detach()
       }
     }
-  }, [userVideo, videoRef])
+  }, [videoTracks, videoRef])
 
   useEffect(() => {
-    const audioTrack = userAudio[0]
+    const audioTrack = audioTracks[0]
     if (audioTrack) {
       audioTrack.attach(audioRef.current)
       return () => {
         audioTrack.detach()
       }
     }
-  }, [userAudio, audioRef])
-
-  return { userVideo, userAudio }
+  }, [audioTracks, audioRef])
 }
 
 export { useUser }
