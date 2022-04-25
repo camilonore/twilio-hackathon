@@ -1,0 +1,21 @@
+.room{
+  height: 100vh;
+  max-height: 100vh;
+  background-color: rgb(32, 33, 36);
+}
+.main{
+  height: calc(100vh - 70px);
+  padding: 20px;
+  display: grid;
+  gap: 15px;
+  grid-auto-rows: minmax(10%, 95%);
+  grid-template-columns: repeat(auto-fit, minmax(min(200px,500px),1fr));
+  align-content: center;
+  justify-content: center;
+} 
+.alone {
+  height: calc(100vh - 70px);
+  padding: 20px;
+  display: grid;
+  place-content: center;
+}

@@ -2,7 +2,7 @@ import styles from './User.module.css'
 import { useRef } from 'react'
 import { useUser } from '../../hooks/useUser.'
 
-function User ({ participant }) {
+function User ({ participant, userStyles }) {
   const videoRef = useRef()
   const audioRef = useRef()
 
@@ -13,9 +13,10 @@ function User ({ participant }) {
   })
 
   return (
-    <div className={styles.user}>
+    <div className={styles[userStyles]}>
       <video autoPlay={true} ref={videoRef}/>
       <audio autoPlay={true} muted={true} ref={audioRef}/>
+      <p>{participant.identity}</p>
     </div>
   )
 }
