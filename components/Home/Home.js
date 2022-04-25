@@ -77,13 +77,13 @@ function Home () {
           <form onSubmit={handleSubmit} className={styles.form}>
             <input type="text" id='room' name='room' required placeholder='Nombre de la sala' />
             {!loading && <button>Ingresar!</button> }
-            {loading && <button disabled >Connectando...</button> }
+            {loading && <button disabled={true} >Connectando...</button> }
           </form>
         </section>
         <aside className={styles.aside}>
           <Image src='/mainAside.svg' alt='Aside logo' width={330} height={330} />
           <h4>Obtén un vinculo para compartir</h4>
-          <p>Haz click en nueva reunion para obtener un vínculo que puedas enviar a las personas con quienes quieras reunirte</p>
+          <p>Ingresa a una nueva sala y obten un vínculo que puedas enviar a las personas con quienes quieras reunirte.</p>
         </aside>
       </main>
 

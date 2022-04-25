@@ -1,11 +1,10 @@
 import { Home } from '../components/Home/Home'
+import styles from '../styles/index.module.css'
 
 export default function Index () {
   return (
-    <div className="app">
-    <main>
+    <main className={styles.main}>
       <Home />
     </main>
-  </div>
   )
 }
