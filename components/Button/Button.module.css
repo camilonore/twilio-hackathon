@@ -1,0 +1,14 @@
+.button{
+  border-radius: 100px;
+  border: none;
+  outline: none;
+  height: 40px;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+.button > svg {
+  transform: scale(0.45);
+  margin: 0%;
+  padding: 0%;
+}
