@@ -15,7 +15,7 @@ function User ({ participant, userStyles }) {
   return (
     <div className={styles[userStyles]}>
       <video autoPlay={true} ref={videoRef}/>
-      <audio autoPlay={true} muted={true} ref={audioRef}/>
+      <audio autoPlay={true} ref={audioRef}/>
       <p>{participant.identity}</p>
     </div>
   )
