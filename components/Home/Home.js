@@ -1,16 +1,26 @@
 import styles from './Home.module.css'
 import Image from 'next/image'
 import Video from 'twilio-video'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { RoomContext } from '../../Context/RoomContext'
 
 function Home () {
   const [loading, setLoading] = useState(false)
-  const { setRoom, setUsers } = useContext(RoomContext)
+  const { setRoom, setUsers, room } = useContext(RoomContext)
   const router = useRouter()
 
+  useEffect(() => {
+    if (room) {
+      room?.disconnect()
+      setRoom(undefined)
+    }
+  }, [])
+
   const handleSubmit = async (evt) => {
+    evt.preventDefault()
+    setLoading(true)
+
     const participantConnected = participant => {
       setUsers(prevParticipants => [...prevParticipants, participant])
     }
@@ -19,14 +29,11 @@ function Home () {
         prevParticipants.filter(p => p !== participant)
       )
     }
-
-    setLoading(true)
-    evt.preventDefault()
     const roomName = evt.target.room.value
     const data = await fetch('/api/get-token', {
       method: 'POST',
       body: JSON.stringify({
-        identity: 'user' + Math.random(),
+        identity: 'user-' + Math.random().toFixed(5),
         room: roomName
       }),
       headers: {

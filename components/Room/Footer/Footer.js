@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styles from './Footer.module.css'
 import { Button } from '../../Button/Button'
 import { Mic, MicOff } from '../../Svg/Mic'
@@ -8,8 +8,10 @@ import { People } from '../../Svg/People'
 import { Chat } from '../../Svg/Chat'
 import { useLocalVideoToggle } from '../../../hooks/useToggleVideo'
 import { useLocalAudioToggle } from '../../../hooks/useToggleAudio'
+import { RoomContext } from '../../../Context/RoomContext'
 
 function Footer ({ roomName, usersCount }) {
+  const { room, setRoom } = useContext(RoomContext)
   const [isOff, setIsOff] = useState({
     mic: false,
     cam: false
@@ -29,6 +31,17 @@ function Footer ({ roomName, usersCount }) {
     })
     toggleVideo()
   }
+  const handleExit = () => {
+    setRoom((prevRoom) => {
+      if (prevRoom) {
+        prevRoom.localParticipant.tracks.forEach((trackPub) => {
+          trackPub.track.stop()
+        })
+        prevRoom.disconnect()
+      }
+      return undefined
+    })
+  }
 
   return (
     <footer className={styles.footer}>
@@ -46,7 +59,7 @@ function Footer ({ roomName, usersCount }) {
               </Button>
             </li>
             <li>
-              <Button status='false' onClick={handleMicClick} style={{ width: '60px' }}>
+              <Button status='false' onClick={handleExit} style={{ width: '60px' }}>
                 <EndCall/>
               </Button>
             </li>

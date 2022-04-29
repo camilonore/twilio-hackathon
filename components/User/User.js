@@ -1,6 +1,6 @@
 import styles from './User.module.css'
 import { useRef } from 'react'
-import { useUser } from '../../hooks/useUser.'
+import { useUser } from '../../hooks/useUser'
 
 function User ({ participant, userStyles }) {
   const videoRef = useRef()

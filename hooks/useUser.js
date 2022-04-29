@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { RoomContext } from '../Context/RoomContext'
 import { trackMapToTrack } from '../utils/trackMapToTrack'
 
 function useUser ({ participant, videoRef, audioRef }) {
+  const { room } = useContext(RoomContext)
   const [videoTracks, setVideoTracks] = useState([])
   const [audioTracks, setAudioTracks] = useState([])
 
@@ -24,15 +26,8 @@ function useUser ({ participant, videoRef, audioRef }) {
         setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track))
       }
     }
-
     participant.on('trackSubscribed', trackSubscribed)
-    participant.on('trackUnsubscribed', trackUnsubscribed)
-
-    return () => {
-      setVideoTracks([])
-      setAudioTracks([])
-      participant.removeAllListeners()
-    }
+    participant.on('disconect', trackUnsubscribed)
   }, [participant])
 
   useEffect(() => {
