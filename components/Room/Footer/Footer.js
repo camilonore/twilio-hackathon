@@ -11,7 +11,7 @@ import { useLocalAudioToggle } from '../../../hooks/useToggleAudio'
 import { RoomContext } from '../../../Context/RoomContext'
 
 function Footer ({ roomName, usersCount }) {
-  const { room, setRoom } = useContext(RoomContext)
+  const { setRoom } = useContext(RoomContext)
   const [isOff, setIsOff] = useState({
     mic: false,
     cam: false

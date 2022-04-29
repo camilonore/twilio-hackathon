@@ -4,7 +4,7 @@ import { RoomContext } from '../Context/RoomContext'
 import { useRouter } from 'next/router'
 
 export default function Handler () {
-  const { room, setRoom } = useContext(RoomContext)
+  const { room } = useContext(RoomContext)
   const router = useRouter()
   useEffect(() => {
     if (room === undefined) router.push('/')
