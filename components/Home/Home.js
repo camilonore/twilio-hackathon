@@ -53,7 +53,7 @@ function Home () {
       room.on('participantConnected', participantConnected)
       room.on('participantDisconnected', participantDisconnected)
       room.participants.forEach(participantConnected)
-      router.push(`/${room}`)
+      router.push(`/${room.name}`)
     }).catch(err => {
       console.log(err)
       setLoading(false)
