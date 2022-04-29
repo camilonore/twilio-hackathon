@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
-import { RoomContext } from '../Context/RoomContext'
+import { useState, useEffect } from 'react'
 import { trackMapToTrack } from '../utils/trackMapToTrack'
 
 function useUser ({ participant, videoRef, audioRef }) {
-  const { room } = useContext(RoomContext)
   const [videoTracks, setVideoTracks] = useState([])
   const [audioTracks, setAudioTracks] = useState([])
 

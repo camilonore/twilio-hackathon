@@ -9,9 +9,9 @@ export default function Handler () {
   useEffect(() => {
     if (room === undefined) router.push('/')
     window.onbeforeunload = () => {
-      room.disconnect()
+      room?.disconnect()
     }
-  }, [room])
+  }, [room, router])
   return (
     <VideoCall/>
   )
