@@ -38,9 +38,6 @@
   height: calc(100vh - 70px);
   place-content: center;
 }
-.image{
-  border-radius: 50%;
-}
 .date {
   margin-right: 50px;
   font-size: 1.125rem;

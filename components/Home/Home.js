@@ -4,8 +4,11 @@ import Video from 'twilio-video'
 import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { RoomContext } from '../../Context/RoomContext'
+import { UserLogged } from './UserLogged/UserLogged'
+import { useSession, signIn } from 'next-auth/react'
 
 function Home () {
+  const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
   const { setRoom, setUsers, room } = useContext(RoomContext)
   const router = useRouter()
@@ -20,6 +23,7 @@ function Home () {
   const handleSubmit = async (evt) => {
     evt.preventDefault()
     setLoading(true)
+    if (!session) { signIn() }
 
     const participantConnected = participant => {
       setUsers(prevParticipants => [...prevParticipants, participant])
@@ -29,12 +33,12 @@ function Home () {
         prevParticipants.filter(p => p !== participant)
       )
     }
-    const roomName = evt.target.room.value
+    const room = evt.target.room.value
     const data = await fetch('/api/get-token', {
       method: 'POST',
       body: JSON.stringify({
-        identity: 'user-' + Math.random().toFixed(5),
-        room: roomName
+        identity: session.user.name,
+        room
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -43,13 +47,13 @@ function Home () {
     const response = await data.json()
     const token = response.token
     Video.connect(token, {
-      name: roomName
+      name: room
     }).then((room) => {
       setRoom(room)
       room.on('participantConnected', participantConnected)
       room.on('participantDisconnected', participantDisconnected)
       room.participants.forEach(participantConnected)
-      router.push(`/${roomName}`)
+      router.push(`/${room}`)
     }).catch(err => {
       console.log(err)
       setLoading(false)
@@ -69,7 +73,7 @@ function Home () {
           </li>
           <li className={styles.date}>{date}</li>
           <li>
-            <Image src='/user.png' alt='user iamge' height={33} width={33} className={styles.image}/>
+            <UserLogged/>
           </li>
         </ul>
       </header>

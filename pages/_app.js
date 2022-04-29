@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import Head from 'next/head'
 import { RoomProvider } from '../Context/RoomContext'
+import { SessionProvider } from 'next-auth/react'
 
 function MyApp ({ Component, pageProps }) {
   <Head>
@@ -9,9 +10,11 @@ function MyApp ({ Component, pageProps }) {
     <link rel="icon" href="/favicon.ico" />
   </Head>
   return (
-    <RoomProvider>
-      <Component {...pageProps} />
-    </RoomProvider>
+    <SessionProvider>
+      <RoomProvider>
+        <Component {...pageProps} />
+      </RoomProvider>
+    </SessionProvider>
   )
 }
 
