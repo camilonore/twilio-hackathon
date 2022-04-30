@@ -10,7 +10,7 @@ import { useLocalVideoToggle } from '../../../hooks/useToggleVideo'
 import { useLocalAudioToggle } from '../../../hooks/useToggleAudio'
 import { RoomContext } from '../../../Context/RoomContext'
 
-function Footer ({ roomName, usersCount }) {
+function Footer ({ roomName, usersCount, setIsParticipantsOpen }) {
   const { setRoom } = useContext(RoomContext)
   const [isOff, setIsOff] = useState({
     mic: false,
@@ -42,6 +42,12 @@ function Footer ({ roomName, usersCount }) {
       return undefined
     })
   }
+  const handlePeople = () => {
+    setIsParticipantsOpen(prev => !prev)
+  }
+  const handleChat = () => {
+    setIsParticipantsOpen(prev => !prev)
+  }
 
   return (
     <footer className={styles.footer}>
@@ -65,14 +71,14 @@ function Footer ({ roomName, usersCount }) {
             </li>
           </div>
           <div>
-            <li className={styles.people}>
+            <Button status='none' onClick={handlePeople}>
               <People/>
               <span className={styles.peopleCount}>
                 {usersCount}
               </span>
-            </li>
+            </Button>
             <li>
-              <Button status='none' onClick={handleMicClick} style={{ width: '40px' }}>
+              <Button status='none' onClick={handleChat} style={{ width: '40px' }}>
                 <Chat/>
               </Button>
             </li>

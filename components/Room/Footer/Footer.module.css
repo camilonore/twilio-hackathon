@@ -21,27 +21,22 @@
 }
 .roomName{
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   color: #fff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-font-smoothing: antialiased;
 }
-.people{
-  position: relative;
-}
-.people > svg {
-  transform: scale(0.5);
-}
 .peopleCount {
   background-color: #5f6368;
+  color: #fff;
   border-radius: 50%;
-  font-weight: bold;
+  font-weight: 600;
   position: absolute;
-  right: 3px;
+  right: 0px;
   top: -5px;
-  font-size: 14px;
+  font-size: 12px;
   padding: 3px;
   height: 20px;
   width: 20px;

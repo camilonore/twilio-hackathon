@@ -1,9 +1,11 @@
 .room{
-  height: 100vh;
+  height: 100%;
   max-height: 100vh;
   background-color: rgb(32, 33, 36);
+  width: 100%;
 }
 .main{
+  position: relative;
   height: calc(100vh - 70px);
   padding: 20px;
   display: grid;

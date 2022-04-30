@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 export default function Handler () {
   const { room } = useContext(RoomContext)
+
   const router = useRouter()
   useEffect(() => {
     if (room === undefined) router.push('/')
@@ -13,6 +14,8 @@ export default function Handler () {
     }
   }, [room, router])
   return (
-    <VideoCall/>
+    <>
+      <VideoCall/>
+    </>
   )
 }

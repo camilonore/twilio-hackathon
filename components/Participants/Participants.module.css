@@ -1,0 +1,40 @@
+.aside {
+  width: 300px;
+  border-radius: 8px;
+  height: 85%;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  background-color: #fff;
+  padding: 10px 20px;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header > button {
+  cursor: pointer;
+  font-size: 30px;
+  width: 35px;
+  height: 35px;
+  margin: 0%;
+  padding: 0%;
+  color: #5f6368;
+  border:  none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 50%;
+}
+.header > button:hover {
+  background-color: rgba(95, 99, 104, .07);
+}
+.main > p {
+  color: #5f6368;
+  font-size: 12px;
+  font-weight: 500;
+}
+.list {
+  padding: 0%;
+  list-style: none;
+}

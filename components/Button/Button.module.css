@@ -1,8 +1,10 @@
 .button{
+  position: relative;
   border-radius: 100px;
   border: none;
   outline: none;
   height: 40px;
+  width: 40px;
   cursor: pointer;
   display: grid;
   place-content: center;
