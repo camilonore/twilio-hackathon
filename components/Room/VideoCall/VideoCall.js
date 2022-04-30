@@ -19,7 +19,7 @@ function VideoCall () {
         {users.length > 0 && users.map(user => {
           return <User userStyles={'user'} participant={user} key={user.sid}/>
         })}
-        {isParticipantsOpen && <Participants/>}
+        {isParticipantsOpen && <Participants setIsParticipantsOpen={setIsParticipantsOpen}/>}
       </main>
       <Footer roomName={roomName} usersCount={users.length + 1} setIsParticipantsOpen={setIsParticipantsOpen}/>
     </div>

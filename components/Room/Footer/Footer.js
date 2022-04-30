@@ -32,6 +32,7 @@ function Footer ({ roomName, usersCount, setIsParticipantsOpen }) {
     toggleVideo()
   }
   const handleExit = () => {
+    setIsParticipantsOpen(false)
     setRoom((prevRoom) => {
       if (prevRoom) {
         prevRoom.localParticipant.tracks.forEach((trackPub) => {
