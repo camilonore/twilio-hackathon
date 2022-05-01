@@ -4,11 +4,13 @@ import { User } from '../../User/User'
 import { useRouter } from 'next/router'
 import styles from './VideoCall.module.css'
 import { Footer } from '../Footer/Footer'
-import { Participants } from '../../Participants/Participants'
+import { ParticipantsModal } from '../../Participants/ParticipantsModal/ParticipantsModal'
+import { Chat } from '../../Chat/Chat'
 
 function VideoCall () {
   const { room, users } = useContext(RoomContext)
   const [isParticipantsOpen, setIsParticipantsOpen] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false)
   const router = useRouter()
   const { roomName } = router.query
 
@@ -19,9 +21,10 @@ function VideoCall () {
         {users.length > 0 && users.map(user => {
           return <User userStyles={'user'} participant={user} key={user.sid}/>
         })}
-        {isParticipantsOpen && <Participants setIsParticipantsOpen={setIsParticipantsOpen}/>}
+        {isParticipantsOpen && <ParticipantsModal setIsParticipantsOpen={setIsParticipantsOpen}/>}
+        {isChatOpen && <Chat setIsChatOpen={setIsChatOpen}/>}
       </main>
-      <Footer roomName={roomName} usersCount={users.length + 1} setIsParticipantsOpen={setIsParticipantsOpen}/>
+      <Footer roomName={roomName} usersCount={users.length + 1} setIsChatOpen={setIsChatOpen} setIsParticipantsOpen={setIsParticipantsOpen}/>
     </div>
   )
 }

@@ -1,0 +1,71 @@
+.aside {
+  width: 300px;
+  border-radius: 8px;
+  height: 85%;
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  right: 10px;
+  background-color: #fff;
+  padding: 10px 20px;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header > button {
+  cursor: pointer;
+  font-size: 30px;
+  width: 35px;
+  height: 35px;
+  margin: 0%;
+  padding: 0%;
+  color: #5f6368;
+  border:  none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 50%;
+}
+.header > button:hover {
+  background-color: rgba(95, 99, 104, .07);
+}
+.inputContainer{
+  border-radius: 25px;
+  background-color: #f1f3f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  border: none;
+  background-color: transparent;
+  padding: 8px;
+  font-size: 14px;
+}
+.button{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  height: fit-content;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+.button > svg {
+  transform: scale(0.6);
+  fill: rgba(60,64,67,.38);
+  stroke: transparent;
+}
+.main {
+  height: 85%;
+}
+.messages {
+  height: 85%;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}

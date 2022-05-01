@@ -1,9 +1,9 @@
-import styles from './Participants.module.css'
+import styles from './ParticipantsModal.module.css'
 import { useContext } from 'react'
-import { RoomContext } from '../../Context/RoomContext'
-import { Card } from './Card/Card'
+import { RoomContext } from '../../../Context/RoomContext'
+import { Card } from '../Card/Card'
 
-function Participants ({ setIsParticipantsOpen }) {
+function ParticipantsModal ({ setIsParticipantsOpen }) {
   const { room, users } = useContext(RoomContext)
   const handleClose = () => {
     setIsParticipantsOpen(prev => !prev)
@@ -27,4 +27,4 @@ function Participants ({ setIsParticipantsOpen }) {
   )
 }
 
-export { Participants }
+export { ParticipantsModal }
