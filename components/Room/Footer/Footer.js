@@ -11,7 +11,7 @@ import { useLocalAudioToggle } from '../../../hooks/useToggleAudio'
 import { RoomContext } from '../../../Context/RoomContext'
 
 function Footer ({ roomName, usersCount, setIsParticipantsOpen, setIsChatOpen }) {
-  const { setRoom } = useContext(RoomContext)
+  const { setRoom, channel } = useContext(RoomContext)
   const [isOff, setIsOff] = useState({
     mic: false,
     cam: false
@@ -32,6 +32,7 @@ function Footer ({ roomName, usersCount, setIsParticipantsOpen, setIsChatOpen })
     toggleVideo()
   }
   const handleExit = () => {
+    console.log({ channel })
     setIsParticipantsOpen(false)
     setIsChatOpen(false)
     setRoom((prevRoom) => {

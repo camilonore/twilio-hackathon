@@ -16,3 +16,45 @@
   color: #202124;
   background-color: #f8f9fa;
 }
+.signOut {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.modal {
+  background-color: #00000017;
+  color: #202124;
+  z-index: 2;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  font-weight: 600;
+  position: absolute;
+  border: none;
+  right: 0;
+  top: 45px;
+}
+.modal:hover{
+  background-color: #00000031;
+}
+.modal:hover::after{
+  border-top: 8px solid #00000031;
+}
+.modal::after{
+  content: '';
+  z-index: 1;
+  position: absolute;
+  right: 5.7px;
+  top: -7.6px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #00000017;
+  clear: both;
+  transform: rotate(180.4deg);
+}
