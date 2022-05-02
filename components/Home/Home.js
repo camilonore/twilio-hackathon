@@ -61,6 +61,15 @@ function Home () {
     })
     const response = await data.json()
     const token = response.token
+    const chatClient = new Client(token)
+    chatClient.on('stateChanged', async (state) => {
+      if (state === 'initialized') {
+        const generalChannel = await chatClient.getChannelByUniqueName('general')
+        generalChannel.on('messageAdded', newMessage)
+        if (generalChannel.status !== 'joined') generalChannel.join()
+        setChannel(generalChannel)
+      }
+    })
     Video.connect(token, {
       name: room
     }).then((room) => {
@@ -72,15 +81,6 @@ function Home () {
     }).catch(err => {
       console.log(err)
       setLoading(false)
-    })
-    const chatClient = new Client(token)
-    chatClient.on('stateChanged', async (state) => {
-      if (state === 'initialized') {
-        const generalChannel = await chatClient.getChannelByUniqueName('general')
-        generalChannel.on('messageAdded', newMessage)
-        if (generalChannel.status !== 'joined') generalChannel.join()
-        setChannel(generalChannel)
-      }
     })
   }
   const date = new Intl.DateTimeFormat('en-US').format(Date.now())

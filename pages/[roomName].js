@@ -4,7 +4,7 @@ import { RoomContext } from '../Context/RoomContext'
 import { useRouter } from 'next/router'
 
 export default function Handler () {
-  const { room, setRoom, channel, setChannel } = useContext(RoomContext)
+  const { room, setRoom, setChannel } = useContext(RoomContext)
 
   const router = useRouter()
   useEffect(() => {
@@ -12,7 +12,6 @@ export default function Handler () {
     window.onbeforeunload = () => {
       room?.disconnect()
       setRoom(undefined)
-      channel.leave()
       setChannel(undefined)
     }
   }, [room, router])
