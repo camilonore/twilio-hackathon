@@ -43,6 +43,7 @@ function Footer ({ roomName, usersCount, setIsParticipantsOpen, setIsChatOpen })
       }
       return undefined
     })
+    channel.leave()
   }
   const handlePeople = () => {
     setIsParticipantsOpen(prev => !prev)

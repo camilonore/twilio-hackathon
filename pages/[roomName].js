@@ -12,6 +12,8 @@ export default function Handler () {
     window.onbeforeunload = () => {
       room?.disconnect()
       setRoom(undefined)
+      channel.leave()
+      setChannel(undefined)
     }
   }, [room, router])
   return (
