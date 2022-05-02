@@ -1,0 +1,15 @@
+.author,
+.message {
+  font-size: 13px;
+  margin: 3px 0;
+}
+.author{
+  font-weight: 500;
+}
+.message {
+  word-wrap: break-word;
+  max-width: 220px;
+}
+.messageContainer{
+  margin: 10px 0;
+}

@@ -5,7 +5,8 @@ const RoomContext = createContext()
 function RoomProvider ({ children }) {
   const [room, setRoom] = useState(undefined)
   const [users, setUsers] = useState([])
-  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [channel, setChannel] = useState(undefined)
+  const [messages, setMessages] = useState([])
 
   return (
     <RoomContext.Provider value={{
@@ -13,8 +14,10 @@ function RoomProvider ({ children }) {
       setRoom,
       users,
       setUsers,
-      isChatOpen,
-      setIsChatOpen
+      channel,
+      setChannel,
+      messages,
+      setMessages
     }}>
       {children}
     </RoomContext.Provider>

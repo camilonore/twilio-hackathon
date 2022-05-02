@@ -43,6 +43,12 @@
   padding: 8px;
   font-size: 14px;
 }
+.input:focus{
+  outline: none;
+}
+.input:valid ~ .button > svg{
+  fill: #1a73e8;
+}
 .button{
   border: none;
   outline: none;
@@ -55,6 +61,10 @@
   display: flex; 
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+}
+.button:hover{
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .button > svg {
   transform: scale(0.6);

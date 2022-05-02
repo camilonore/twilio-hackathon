@@ -1,4 +1,4 @@
-import { videoToken } from '../../utils/videoToken'
+import { videoChatToken } from '../../utils/videoChatToken'
 
 export default function handler (req, res) {
   const sendTokenResponse = (token, res) => {
@@ -15,7 +15,7 @@ export default function handler (req, res) {
     if (!identity || !room) {
       return res.status(400).send('Identity and Room required')
     }
-    const token = videoToken(identity, room)
+    const token = videoChatToken(identity, room)
     sendTokenResponse(token, res)
   } else if (req.method === 'POST') {
     const identity = req.body.identity
@@ -23,7 +23,7 @@ export default function handler (req, res) {
     if (!identity || !room) {
       return res.status(400).send('Identity and Room required')
     }
-    const token = videoToken(identity, room)
+    const token = videoChatToken(identity, room)
     sendTokenResponse(token, res)
   }
 }
