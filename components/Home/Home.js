@@ -1,64 +1,9 @@
 import styles from './Home.module.css'
 import Image from 'next/image'
-import Video from 'twilio-video'
-import { useState, useContext, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { RoomContext } from '../../Context/RoomContext'
 import { UserLogged } from './UserLogged/UserLogged'
-import { useSession, signIn } from 'next-auth/react'
+import { Form } from './Form/Form'
 
 function Home () {
-  const { data: session } = useSession()
-  const [loading, setLoading] = useState(false)
-  const { setRoom, setUsers, room } = useContext(RoomContext)
-  const router = useRouter()
-
-  useEffect(() => {
-    if (room) {
-      room?.disconnect()
-      setRoom(undefined)
-    }
-  }, [])
-
-  const handleSubmit = async (evt) => {
-    evt.preventDefault()
-    if (!session) { signIn() }
-    setLoading(true)
-
-    const participantConnected = participant => {
-      setUsers(prevParticipants => [...prevParticipants, participant])
-    }
-    const participantDisconnected = participant => {
-      setUsers(prevParticipants =>
-        prevParticipants.filter(p => p !== participant)
-      )
-    }
-    const room = evt.target.room.value
-    const data = await fetch('/api/get-token', {
-      method: 'POST',
-      body: JSON.stringify({
-        identity: session.user.name,
-        room
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const response = await data.json()
-    const token = response.token
-    Video.connect(token, {
-      name: room
-    }).then((room) => {
-      setRoom(room)
-      room.on('participantConnected', participantConnected)
-      room.on('participantDisconnected', participantDisconnected)
-      room.participants.forEach(participantConnected)
-      router.push(`/${room.name}`)
-    }).catch(err => {
-      console.log(err)
-      setLoading(false)
-    })
-  }
   const date = new Intl.DateTimeFormat('en-US').format(Date.now())
   return (
     <>
@@ -85,11 +30,7 @@ function Home () {
           <p>
             Rediseñamos Google Meet, nuestro servicio de reuniones de negocios seguras, de modo que sea gratuito y esté disponible para todos.
           </p>
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <input type="text" id='room' name='room' required placeholder='Nombre de la sala' />
-            {!loading && <button>Ingresar!</button> }
-            {loading && <button disabled={true} >Connectando...</button> }
-          </form>
+          <Form/>
         </section>
         <aside className={styles.aside}>
           <Image src='/mainAside.svg' alt='Aside logo' width={330} height={330} />
