@@ -1,23 +1,26 @@
 import { VideoCall } from '../components/Room/VideoCall/VideoCall'
-import { useEffect, useContext } from 'react'
-import { RoomContext } from '../Context/RoomContext'
 import { useRouter } from 'next/router'
+import { useConnectVideo } from '../hooks/useConnectVideo'
+import { LoadingScreen } from '../components/LoadingScreen/LoadingScreen'
+import { useEffect } from 'react'
 
 export default function Handler () {
-  const { room, setRoom, setChannel } = useContext(RoomContext)
-
   const router = useRouter()
+  const { roomName, room, setRoom } = router.query
+  const { loading } = useConnectVideo(roomName)
+
   useEffect(() => {
     if (room === undefined) router.push('/')
     window.onbeforeunload = () => {
       room?.disconnect()
       setRoom(undefined)
-      setChannel(undefined)
     }
   }, [room, router])
+
   return (
     <>
-      <VideoCall/>
+      {loading && <LoadingScreen/>}
+      <VideoCall roomName={roomName}/>
     </>
   )
 }

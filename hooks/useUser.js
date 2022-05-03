@@ -11,9 +11,13 @@ function useUser ({ participant, videoRef, audioRef }) {
 
     const trackSubscribed = (track) => {
       if (track.kind === 'video') {
-        setVideoTracks((videoTracks) => [...videoTracks, track])
+        setVideoTracks((videoTracks) => {
+          return [...videoTracks, track]
+        })
       } else if (track.kind === 'audio') {
-        setAudioTracks((audioTracks) => [...audioTracks, track])
+        setAudioTracks((audioTracks) => {
+          return [...audioTracks, track]
+        })
       }
     }
 

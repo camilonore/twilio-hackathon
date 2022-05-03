@@ -1,31 +1,47 @@
 import Video from 'twilio-video'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { RoomContext } from '../Context/RoomContext'
 import { useRouter } from 'next/router'
 
-function useConnectVideo ({ roomName }) {
+function useConnectVideo (roomName) {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const { token, setUsers, setRoom } = useContext(RoomContext)
-  if (!token) router.push('/')
-  const participantConnected = participant => {
-    setUsers(prevParticipants => [...prevParticipants, participant])
-  }
-  const participantDisconnected = participant => {
-    setUsers(prevParticipants =>
-      prevParticipants.filter(p => p !== participant)
-    )
-  }
 
-  Video.connect(token, {
-    name: roomName
-  }).then((room) => {
-    setRoom(room)
-    room.on('participantConnected', participantConnected)
-    room.on('participantDisconnected', participantDisconnected)
-    room.participants.forEach(participantConnected)
-  }).catch(err => {
-    console.log(err)
-  })
+  useEffect(() => {
+    if (!token) {
+      router.push('/')
+      return
+    }
+    setLoading(true)
+    const participantConnected = participant => {
+      setUsers(prevParticipants => {
+        const participants = prevParticipants.filter(_participant => {
+          return _participant.sid !== participant.sid
+        })
+        return [...participants, participant]
+      })
+    }
+    const participantDisconnected = participant => {
+      setUsers(prevParticipants => {
+        return prevParticipants.filter(p => p !== participant)
+      })
+    }
+    Video.connect(token, {
+      name: roomName
+    }).then((room) => {
+      room.on('participantConnected', participantConnected)
+      room.on('participantDisconnected', participantDisconnected)
+      room.participants.forEach(participantConnected)
+      setRoom(room)
+      setLoading(false)
+    }).catch(err => {
+      console.log(err)
+      setLoading(false)
+    })
+  }, [roomName, token])
+
+  return { loading }
 }
 
 export { useConnectVideo }
