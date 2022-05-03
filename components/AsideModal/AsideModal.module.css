@@ -30,12 +30,6 @@
 .header > button:hover {
   background-color: rgba(95, 99, 104, .07);
 }
-.main > p {
-  color: #5f6368;
-  font-size: 12px;
-  font-weight: 500;
-}
-.list {
-  padding: 0%;
-  list-style: none;
+.main {
+  height: 85%;
 }

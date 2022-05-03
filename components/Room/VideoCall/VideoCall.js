@@ -4,7 +4,7 @@ import { User } from '../../User/User'
 import { useRouter } from 'next/router'
 import styles from './VideoCall.module.css'
 import { Footer } from '../Footer/Footer'
-import { ParticipantsModal } from '../../Participants/ParticipantsModal/ParticipantsModal'
+import { Participants } from '../../Participants/Participants'
 import { Chat } from '../../Chat/Chat'
 
 function VideoCall () {
@@ -21,7 +21,7 @@ function VideoCall () {
         {users.length > 0 && users.map(user => {
           return <User userStyles={'user'} participant={user} key={user.sid}/>
         })}
-        {isParticipantsOpen && <ParticipantsModal setIsParticipantsOpen={setIsParticipantsOpen}/>}
+        {isParticipantsOpen && <Participants setIsParticipantsOpen={setIsParticipantsOpen}/>}
         {isChatOpen && <Chat setIsChatOpen={setIsChatOpen}/>}
       </main>
       <Footer roomName={roomName} usersCount={users.length + 1} setIsChatOpen={setIsChatOpen} setIsParticipantsOpen={setIsParticipantsOpen}/>
