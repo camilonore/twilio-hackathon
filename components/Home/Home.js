@@ -1,7 +1,6 @@
 import styles from './Home.module.css'
 import Image from 'next/image'
 import Video from 'twilio-video'
-import { Client } from 'twilio-chat'
 import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { RoomContext } from '../../Context/RoomContext'
@@ -11,17 +10,13 @@ import { useSession, signIn } from 'next-auth/react'
 function Home () {
   const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
-  const { setRoom, setUsers, room, setChannel, setMessages, messages } = useContext(RoomContext)
+  const { setRoom, setUsers, room } = useContext(RoomContext)
   const router = useRouter()
 
   useEffect(() => {
     if (room) {
       room?.disconnect()
       setRoom(undefined)
-    }
-    if (messages) {
-      setMessages([])
-      setChannel(undefined)
     }
   }, [])
 
@@ -38,16 +33,6 @@ function Home () {
         prevParticipants.filter(p => p !== participant)
       )
     }
-    const newMessage = message => {
-      const messageParsed = {
-        message: message.state.body,
-        author: message.state.author,
-        sid: message.state.sid
-      }
-      setMessages(prevMessages => {
-        return [...prevMessages, messageParsed]
-      })
-    }
     const room = evt.target.room.value
     const data = await fetch('/api/get-token', {
       method: 'POST',
@@ -61,7 +46,6 @@ function Home () {
     })
     const response = await data.json()
     const token = response.token
-    const chatClient = new Client(token)
     Video.connect(token, {
       name: room
     }).then((room) => {
@@ -73,18 +57,6 @@ function Home () {
     }).catch(err => {
       console.log(err)
       setLoading(false)
-    })
-    chatClient.on('stateChanged', async (state) => {
-      if (state === 'initialized') {
-        const generalChannel = await chatClient.getChannelByUniqueName('general')
-        generalChannel.on('messageAdded', newMessage)
-        if (generalChannel.status !== 'joined') {
-          generalChannel.join()
-          setChannel(generalChannel)
-        }
-        generalChannel.delete()
-        setChannel(generalChannel)
-      }
     })
   }
   const date = new Intl.DateTimeFormat('en-US').format(Date.now())
