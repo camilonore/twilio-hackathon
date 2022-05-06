@@ -25,10 +25,11 @@ function Form () {
         'Content-Type': 'application/json'
       }
     })
-    const response = await data.json()
-    const token = response.token
-    setToken(token)
-    router.push(`/${room}`)
+    data.json().then(response => {
+      const token = response.token
+      setToken(token)
+      router.push(`/${room}`)
+    })
   }
 
   return (

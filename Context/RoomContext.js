@@ -6,6 +6,8 @@ function RoomProvider ({ children }) {
   const [room, setRoom] = useState(undefined)
   const [token, setToken] = useState(undefined)
   const [users, setUsers] = useState([])
+  const [channel, setChannel] = useState(undefined)
+  const [messages, setMessages] = useState([])
 
   return (
     <RoomContext.Provider value={{
@@ -14,7 +16,11 @@ function RoomProvider ({ children }) {
       token,
       setToken,
       users,
-      setUsers
+      setUsers,
+      messages,
+      setMessages,
+      channel,
+      setChannel
     }}>
       {children}
     </RoomContext.Provider>

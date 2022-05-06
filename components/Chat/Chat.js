@@ -1,11 +1,12 @@
 import styles from './Chat.module.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { Send } from '../Svg/Send'
 import { Card } from './Card/Card'
 import { AsideModal } from '../AsideModal/AsideModal'
+import { RoomContext } from '../../Context/RoomContext'
 
 function Chat ({ setIsChatOpen }) {
-  const messages = []
+  const { messages, channel } = useContext(RoomContext)
   const [disabled, setDisabled] = useState(false)
   const messagesRef = useRef(null)
   const handleClose = () => {
@@ -15,7 +16,9 @@ function Chat ({ setIsChatOpen }) {
     evt.preventDefault()
     setDisabled(true)
     const message = evt.target.message.value
-    console.log({ message })
+    channel.sendMessage(String(message).trim())
+    evt.target.message.value = ''
+    setDisabled(false)
   }
   return (
     <AsideModal title='Mensajes en la llamada' handleClose={handleClose}>
