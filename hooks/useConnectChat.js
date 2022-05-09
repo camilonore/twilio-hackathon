@@ -38,15 +38,14 @@ function useConnectChat (roomName) {
         joinChannel(channel)
         setChannel(channel)
       } catch (err) {
-        console.error('Error Looking for channel ', { err })
         try {
           const channel = await client.createChannel({
             uniqueName: roomName,
             friendlyName: roomName
           })
           joinChannel(channel)
-        } catch (err) {
-          throw new Error('Unable to create channel, please reload this page ', { err })
+        } catch {
+          throw new Error('Unable to create channel, please reload this page')
         }
       }
     })()
