@@ -33,7 +33,7 @@ function Home () {
           <Form/>
         </section>
         <aside className={styles.aside}>
-          <Image src='/mainAside.svg' alt='Aside logo' width={330} height={330} />
+          <Image src='/mainAside.svg' alt='Aside logo' width={330} height={330} priority />
           <h4>Obtén un vinculo para compartir</h4>
           <p>Ingresa a una nueva sala y obten un vínculo que puedas enviar a las personas con quienes quieras reunirte.</p>
         </aside>
