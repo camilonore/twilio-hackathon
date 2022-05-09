@@ -8,6 +8,7 @@ function useConnectChat (roomName) {
   const router = useRouter()
 
   const handleMessageAdded = message => {
+    console.log('new message')
     setMessages(messages => [...messages, message])
   }
 
@@ -35,18 +36,20 @@ function useConnectChat (roomName) {
       })
       try {
         const channel = await client.getChannelByUniqueName(roomName)
+        console.log('Looking for channel ', { channel })
         joinChannel(channel)
         setChannel(channel)
       } catch (err) {
-        console.log({ err })
+        console.error('Error Looking for channel ', { err })
         try {
           const channel = await client.createChannel({
             uniqueName: roomName,
             friendlyName: roomName
           })
+          console.log('Created channel ', { channel })
           joinChannel(channel)
         } catch (err) {
-          throw new Error('Unable to create channel, please reload this page', { err })
+          throw new Error('Unable to create channel, please reload this page ', { err })
         }
       }
     })()
