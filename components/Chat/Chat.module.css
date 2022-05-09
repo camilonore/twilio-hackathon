@@ -44,3 +44,9 @@
   overflow-y: scroll;
   margin-bottom: 20px;
 }
+.form {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+}

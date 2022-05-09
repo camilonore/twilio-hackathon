@@ -12,13 +12,19 @@ function Chat ({ setIsChatOpen }) {
   const handleClose = () => {
     setIsChatOpen(prev => !prev)
   }
+  const scrollToBottom = () => {
+    const scrollHeight = messagesRef.current.scrollHeight
+    messagesRef.current.scrollTo(0, scrollHeight)
+  }
   const handleSubmit = (evt) => {
     evt.preventDefault()
     setDisabled(true)
     const message = evt.target.message.value
-    channel.sendMessage(String(message).trim())
-    evt.target.message.value = ''
-    setDisabled(false)
+    channel.sendMessage(String(message).trim()).then(() => {
+      scrollToBottom()
+      evt.target.message.value = ''
+      setDisabled(false)
+    })
   }
   return (
     <AsideModal title='Mensajes en la llamada' handleClose={handleClose}>

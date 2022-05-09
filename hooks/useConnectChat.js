@@ -8,7 +8,12 @@ function useConnectChat (roomName) {
   const router = useRouter()
 
   const handleMessageAdded = message => {
-    setMessages(messages => [...messages, message])
+    setMessages(prevMessages => {
+      const messages = prevMessages.filter(_message => {
+        return _message.sid !== message.sid
+      })
+      return [...messages, message]
+    })
   }
 
   const joinChannel = async (channel) => {
