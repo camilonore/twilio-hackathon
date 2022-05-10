@@ -1,0 +1,43 @@
+.container {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  height: 1.625em;
+  width: 1.625em;
+  align-items: center;
+  background-color: rgba(26,115,232,0.902);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+.spanSide,
+.spanCenter {
+  background-color: #fff;
+  width: 4px;
+  height: 4px;
+  border-radius: 20px;
+}
+.spanCenter {
+  animation: voiceCenter 500ms infinite ease-in-out alternate-reverse;
+}
+.spanSide {
+  animation: voiceSides 500ms infinite ease-in-out alternate-reverse;
+}
+
+@keyframes voiceCenter {
+  from {
+    height: 4px;
+  }
+  to {
+    height: 12px;
+  }
+}
+@keyframes voiceSides {
+  from {
+    height: 4px;
+  }
+  to {
+    height: 7px;
+  }
+}
