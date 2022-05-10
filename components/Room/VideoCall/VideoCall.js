@@ -1,15 +1,15 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { RoomContext } from '../../../Context/RoomContext'
 import { User } from '../../User/User'
 import styles from './VideoCall.module.css'
 import { Footer } from '../Footer/Footer'
 import { Participants } from '../../Participants/Participants'
 import { Chat } from '../../Chat/Chat'
+import { VideoCallContext } from '../../../Context/VideoCallContext'
 
 function VideoCall ({ roomName }) {
   const { room, users } = useContext(RoomContext)
-  const [isParticipantsOpen, setIsParticipantsOpen] = useState(false)
-  const [isChatOpen, setIsChatOpen] = useState(false)
+  const { isChatOpen, isParticipantsOpen } = useContext(VideoCallContext)
 
   return (
     <div className={styles.room}>
@@ -18,10 +18,10 @@ function VideoCall ({ roomName }) {
         {users.length > 0 && users.map(user => {
           return <User participant={user} key={user.sid}/>
         })}
-        {isParticipantsOpen && <Participants setIsParticipantsOpen={setIsParticipantsOpen}/>}
-        {isChatOpen && <Chat setIsChatOpen={setIsChatOpen}/>}
+        {isParticipantsOpen && <Participants />}
+        {isChatOpen && <Chat/>}
       </main>
-      <Footer roomName={roomName} usersCount={users.length + 1} setIsChatOpen={setIsChatOpen} setIsParticipantsOpen={setIsParticipantsOpen}/>
+      <Footer roomName={roomName} usersCount={users.length + 1} />
     </div>
   )
 }

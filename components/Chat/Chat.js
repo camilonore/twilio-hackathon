@@ -4,8 +4,10 @@ import { Send } from '../Svg/Send'
 import { Card } from './Card/Card'
 import { AsideModal } from '../AsideModal/AsideModal'
 import { RoomContext } from '../../Context/RoomContext'
+import { VideoCallContext } from '../../Context/VideoCallContext'
 
-function Chat ({ setIsChatOpen }) {
+function Chat () {
+  const { setIsChatOpen } = useContext(VideoCallContext)
   const { messages, channel } = useContext(RoomContext)
   const [disabled, setDisabled] = useState(false)
   const messagesRef = useRef(null)

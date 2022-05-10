@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useConnectVideo } from '../hooks/useConnectVideo'
 import { LoadingScreen } from '../components/LoadingScreen/LoadingScreen'
 import { useConnectChat } from '../hooks/useConnectChat'
+import { VideoCallProvider } from '../Context/VideoCallContext'
 
 export default function Handler () {
   const router = useRouter()
@@ -11,9 +12,9 @@ export default function Handler () {
   useConnectChat(roomName)
 
   return (
-    <>
+    <VideoCallProvider>
       {loadingVideo && <LoadingScreen/>}
       <VideoCall roomName={roomName}/>
-    </>
+    </VideoCallProvider>
   )
 }

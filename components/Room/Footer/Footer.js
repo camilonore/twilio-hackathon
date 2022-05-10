@@ -9,9 +9,11 @@ import { Chat } from '../../Svg/Chat'
 import { useLocalVideoToggle } from '../../../hooks/useToggleVideo'
 import { useLocalAudioToggle } from '../../../hooks/useToggleAudio'
 import { RoomContext } from '../../../Context/RoomContext'
+import { VideoCallContext } from '../../../Context/VideoCallContext'
 
-function Footer ({ roomName, usersCount, setIsParticipantsOpen, setIsChatOpen }) {
+function Footer ({ roomName, usersCount }) {
   const { room, setToken, setUsers, setChannel, setMessages, setRoom } = useContext(RoomContext)
+  const { setIsParticipantsOpen, setIsChatOpen, setMicroOpen } = useContext(VideoCallContext)
   const [isOff, setIsOff] = useState({
     mic: false,
     cam: false
@@ -24,6 +26,7 @@ function Footer ({ roomName, usersCount, setIsParticipantsOpen, setIsChatOpen })
       return ({ ...prev, mic: !prev.mic })
     })
     toggleAudio()
+    setMicroOpen(prev => !prev)
   }
   const handleCamClick = () => {
     setIsOff(prev => {
