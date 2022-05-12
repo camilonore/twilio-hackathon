@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 function useConnectVideo (roomName) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const { token, setUsers, setRoom } = useContext(RoomContext)
+  const { token, setUsers, setRoom, setDominantSpeaker } = useContext(RoomContext)
 
   useEffect(() => {
     if (!token) {
@@ -26,10 +26,18 @@ function useConnectVideo (roomName) {
       setUsers(prevParticipants => {
         return prevParticipants.filter(p => p !== participant)
       })
+      setDominantSpeaker(prevDominantSpeaker => {
+        return prevDominantSpeaker === participant ? null : prevDominantSpeaker
+      })
+    }
+    const dominantSpeakerChanged = (speaker) => {
+      setDominantSpeaker(speaker)
     }
     Video.connect(token, {
-      name: roomName
+      name: roomName,
+      dominantSpeaker: true
     }).then((room) => {
+      room.on('dominantSpeakerChanged', dominantSpeakerChanged)
       room.on('participantConnected', participantConnected)
       room.on('participantDisconnected', participantDisconnected)
       room.participants.forEach(participantConnected)

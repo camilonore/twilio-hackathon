@@ -8,6 +8,7 @@ function RoomProvider ({ children }) {
   const [users, setUsers] = useState([])
   const [channel, setChannel] = useState(undefined)
   const [messages, setMessages] = useState([])
+  const [dominantSpeaker, setDominantSpeaker] = useState([])
 
   return (
     <RoomContext.Provider value={{
@@ -20,7 +21,9 @@ function RoomProvider ({ children }) {
       messages,
       setMessages,
       channel,
-      setChannel
+      setChannel,
+      dominantSpeaker,
+      setDominantSpeaker
     }}>
       {children}
     </RoomContext.Provider>
