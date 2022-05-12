@@ -10,6 +10,7 @@ import { useLocalVideoToggle } from '../../../hooks/useToggleVideo'
 import { useLocalAudioToggle } from '../../../hooks/useToggleAudio'
 import { RoomContext } from '../../../Context/RoomContext'
 import { VideoCallContext } from '../../../Context/VideoCallContext'
+import { useTime } from '../../../hooks/useTime'
 
 function Footer ({ roomName, usersCount }) {
   const { room, setToken, setUsers, setChannel, setMessages, setRoom } = useContext(RoomContext)
@@ -20,6 +21,7 @@ function Footer ({ roomName, usersCount }) {
   })
   const { toggleVideo } = useLocalVideoToggle()
   const { toggleAudio } = useLocalAudioToggle()
+  const { time } = useTime()
 
   const handleMicClick = () => {
     setIsOff(prev => {
@@ -54,7 +56,13 @@ function Footer ({ roomName, usersCount }) {
   return (
     <footer className={styles.footer}>
         <ul className={styles.list}>
-          <li className={styles.roomName}>{roomName}</li>
+          <li>
+            <p className={styles.roomName}>
+              {time.hour}
+              <span> | </span>
+              {roomName}
+            </p>
+          </li>
           <div>
             <li>
               <Button status={(isOff.mic).toString()} onClick={handleMicClick} style={{ width: '40px' }}>

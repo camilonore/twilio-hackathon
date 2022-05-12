@@ -2,9 +2,10 @@ import styles from './Home.module.css'
 import Image from 'next/image'
 import { UserLogged } from './UserLogged/UserLogged'
 import { Form } from './Form/Form'
+import { useTime } from '../../hooks/useTime'
 
 function Home () {
-  const date = new Intl.DateTimeFormat('en-US').format(Date.now())
+  const { time } = useTime()
   return (
     <>
       <header className={styles.header}>
@@ -16,7 +17,13 @@ function Home () {
               <span> Meet</span>
             </p>
           </li>
-          <li className={styles.date}>{date}</li>
+          <li className={styles.date}>
+            <p>
+              <span>{time.hour}</span>
+              <span> • </span>
+              <span>{time.day}{time.date}</span>
+            </p>
+          </li>
           <li className={styles.user}>
             <UserLogged/>
           </li>
